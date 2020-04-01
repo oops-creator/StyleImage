@@ -27,6 +27,22 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     }
 
+    static Camera.AutoFocusCallback myAutoFocusCallback = new Camera.AutoFocusCallback(){
+
+        @Override
+        public void onAutoFocus(boolean arg0, Camera arg1) {
+
+        }};
+
+    Camera.ShutterCallback myShutterCallback = new Camera.ShutterCallback(){
+
+        @Override
+        public void onShutter() {
+
+
+        }};
+
+
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {

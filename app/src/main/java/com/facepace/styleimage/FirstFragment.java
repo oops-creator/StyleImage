@@ -67,13 +67,18 @@ public class FirstFragment extends Fragment {
         int CameraId = Camera.getNumberOfCameras();
         CameraPreview.setCameraDisplayOrientation(getActivity(),CameraId-1,mCamera );
 
+
+
         view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // get an image from the camera
+                mCamera.autoFocus(CameraPreview.myAutoFocusCallback);
                 mCamera.takePicture(null, null, mPicture);
             }
         });
+
+
 
 
         //TODO Fix auto focus
