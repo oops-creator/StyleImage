@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -74,44 +76,17 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 // get an image from the camera
                 mCamera.autoFocus(CameraPreview.myAutoFocusCallback);
+                //TODO Create an indeterminate porgress bar
+                //ProgressBar pb = (ProgressBar)view.findViewById(R.id.indeterminateBar);
+                //pb.setVisibility(View.VISIBLE);
+                Toast.makeText(getContext(),"Please wait while the image is processed",Toast.LENGTH_SHORT).show();
+
                 mCamera.takePicture(null, null, mPicture);
             }
         });
 
 
 
-
-        //TODO Fix auto focus
-        /*
-        // get Camera parameters
-        Camera.Parameters params = mCamera.getParameters();
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
-
-
-        List<String> focusModes = params.getSupportedFocusModes();
-        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
-
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Camera.Parameters parameters = mCamera.getParameters();
-                    parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-                    mCamera.setParameters(parameters);
-                }
-            });
-
-
-        }*/
-
-
-
-       /* view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });*/
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -150,9 +125,6 @@ public class FirstFragment extends Fragment {
         if (type == MEDIA_TYPE_IMAGE){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                     "IMG_"+ timeStamp + ".jpg");
-        } else if(type == MEDIA_TYPE_VIDEO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "VID_"+ timeStamp + ".mp4");
         } else {
             return null;
         }
@@ -182,10 +154,16 @@ public class FirstFragment extends Fragment {
                 data = cartoonizer.makeCartoon();
                 fos.write(data);
                 fos.close();
+                Toast.makeText(getContext(),"Image stored in " + pictureFile,Toast.LENGTH_SHORT).show();
+
             } catch (FileNotFoundException e) {
                 Log.d(TAG, "File not found: " + e.getMessage());
+                Toast.makeText(getContext(),"Error occurred",Toast.LENGTH_SHORT).show();
+
             } catch (IOException e) {
                 Log.d(TAG, "Error accessing file: " + e.getMessage());
+                Toast.makeText(getContext(),"Error occurred",Toast.LENGTH_SHORT).show();
+
             }
         }
     };
